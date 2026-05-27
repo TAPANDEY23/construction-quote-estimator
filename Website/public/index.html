@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Construction Quote Estimator — AI Copilot</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>" />
+</head>
+<body>
+<div class="page-layout">
+
+  <!-- ── LEFT: Image Panel ─────────────────────────────────────────────────── -->
+  <div class="image-panel" id="image-panel">
+
+    <div class="slide active" id="slide-0"
+      style="background-image:url('https://images.pexels.com/photos/209266/pexels-photo-209266.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+    <div class="slide" id="slide-1"
+      style="background-image:url('https://images.pexels.com/photos/37627540/pexels-photo-37627540.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+    <div class="slide" id="slide-2"
+      style="background-image:url('https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')"></div>
+
+    <div class="slide-overlay"></div>
+
+    <!-- Brand mark in top-left -->
+    <div class="slide-brand">
+      <span class="slide-brand-icon">🏗️</span>
+      <span class="slide-brand-text">Built in Australia</span>
+    </div>
+
+    <!-- Image captions, bottom-left -->
+    <div class="slide-captions">
+      <div class="slide-caption active" data-slide="0">Timber frame — new residential build in progress</div>
+      <div class="slide-caption"        data-slide="1">Two-storey home — wall framing &amp; structural stage</div>
+      <div class="slide-caption"        data-slide="2">Residential development — construction &amp; crane lift</div>
+    </div>
+
+    <!-- Navigation dots -->
+    <div class="slide-dots">
+      <button class="slide-dot active" data-slide="0" aria-label="Photo 1"></button>
+      <button class="slide-dot"        data-slide="1" aria-label="Photo 2"></button>
+      <button class="slide-dot"        data-slide="2" aria-label="Photo 3"></button>
+    </div>
+
+    <!-- Left-panel tagline -->
+    <div class="slide-tagline">
+      <div class="slide-tagline-title">Estimate your build<br>with AI confidence</div>
+      <div class="slide-tagline-sub">Australian pricing · 2024–2025</div>
+    </div>
+
+  </div><!-- /image-panel -->
+
+  <!-- ── RIGHT: Content Panel ──────────────────────────────────────────────── -->
+  <div class="content-panel">
+
+    <!-- Hero -->
+    <div class="hero-section">
+      <div class="hero-badge">🤖 AI-Powered Copilot</div>
+      <h1 class="hero-title">Construction Quote<br>Estimator</h1>
+      <p class="hero-sub">AI guidance on every step &nbsp;·&nbsp; Australian market &nbsp;·&nbsp; Instant results</p>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat">
+        <span class="stat-num" data-target="7">0</span>
+        <span class="stat-label">guided steps</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="16">0</span>
+        <span class="stat-label">cost categories</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="4">0</span>
+        <span class="stat-label">builder matches</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="3">0</span>
+        <span class="stat-label">price tiers</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Status + Launch -->
+    <div class="launch-section">
+
+      <div class="status-card" id="status-card">
+        <div class="status-indicator">
+          <span class="status-dot" id="status-dot"></span>
+          <span class="status-text" id="status-text">Checking status…</span>
+        </div>
+        <a class="open-link" id="open-link" href="http://localhost:5173" target="_blank" style="display:none">
+          Open app ↗
+        </a>
+      </div>
+
+      <button class="launch-btn" id="launch-btn" disabled>
+        <span class="btn-icon" id="btn-icon">🚀</span>
+        <span class="btn-label" id="btn-label">Launch Estimator</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <!-- Progress area -->
+      <div class="progress-wrap" id="progress-wrap">
+        <div class="progress-steps-row" id="progress-steps-row">
+          <div class="prog-step" id="prog-step-1">
+            <div class="prog-dot"></div>
+            <span>Backend</span>
+          </div>
+          <div class="prog-connector"></div>
+          <div class="prog-step" id="prog-step-2">
+            <div class="prog-dot"></div>
+            <span>Frontend</span>
+          </div>
+          <div class="prog-connector"></div>
+          <div class="prog-step" id="prog-step-3">
+            <div class="prog-dot"></div>
+            <span>Ready</span>
+          </div>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <p class="progress-msg" id="progress-msg"></p>
+      </div>
+
+    </div><!-- /launch-section -->
+
+    <div class="divider"></div>
+
+    <!-- How it works -->
+    <div class="how-section">
+      <div class="how-title">How it works</div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-content">
+            <div class="how-step-title">Tell us your project</div>
+            <div class="how-step-desc">7 guided questions on location, size, rooms &amp; finishes</div>
+          </div>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-content">
+            <div class="how-step-title">Copilot guides you</div>
+            <div class="how-step-desc">AI insights appear automatically on every step</div>
+          </div>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-content">
+            <div class="how-step-title">Get your estimate</div>
+            <div class="how-step-desc">Full cost breakdown + top 4 builder recommendations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature grid (2×2) -->
+    <div class="feature-grid">
+
+      <div class="feature-card feature-card--highlight">
+        <div class="feat-card-icon">🤖</div>
+        <div class="feat-card-body">
+          <div class="feat-card-title">AI Copilot</div>
+          <div class="feat-card-desc">Proactive insights on suburb, size &amp; cost at every step</div>
+        </div>
+        <div class="feat-card-badge">NEW</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-card-icon">📍</div>
+        <div class="feat-card-body">
+          <div class="feat-card-title">Suburb Intelligence</div>
+          <div class="feat-card-desc">Council rules, site conditions &amp; market data for your area</div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-card-icon">🏢</div>
+        <div class="feat-card-body">
+          <div class="feat-card-title">Builder Recommendations</div>
+          <div class="feat-card-desc">Top 4 Australian builders matched to your suburb &amp; tier</div>
+        </div>
+        <div class="feat-card-badge feat-card-badge--blue">NEW</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-card-icon">💰</div>
+        <div class="feat-card-body">
+          <div class="feat-card-title">3 Price Tiers</div>
+          <div class="feat-card-desc">Budget, mid-range &amp; premium ranges side-by-side</div>
+        </div>
+      </div>
+
+    </div><!-- /feature-grid -->
+
+    <p class="footer-note">Runs locally · No data leaves your machine · Australian pricing 2024–2025</p>
+
+  </div><!-- /content-panel -->
+</div><!-- /page-layout -->
+
+<!-- ── REGISTRATION MODAL ──────────────────────────────────────────────────── -->
+<div class="reg-overlay" id="reg-overlay" role="dialog" aria-modal="true" aria-labelledby="reg-title">
+  <div class="reg-modal" id="reg-modal">
+
+    <div class="reg-modal-header">
+      <div class="reg-header-icon">🏗️</div>
+      <h2 id="reg-title">Almost there!</h2>
+      <p class="reg-header-sub">
+        Building vendors will use your details to send relevant quotes and proposals based on your estimate.
+      </p>
+    </div>
+
+    <div class="reg-modal-body">
+      <form class="reg-form" id="reg-form" novalidate>
+
+        <div class="reg-row">
+          <div class="reg-field">
+            <label for="reg-name">Full name <span class="req">*</span></label>
+            <input type="text"  id="reg-name"  name="name"  placeholder="Jane Smith"      autocomplete="name"  required />
+            <span class="reg-err" id="err-name"></span>
+          </div>
+        </div>
+
+        <div class="reg-row reg-row-2">
+          <div class="reg-field">
+            <label for="reg-email">Email address <span class="req">*</span></label>
+            <input type="email" id="reg-email" name="email" placeholder="jane@example.com" autocomplete="email" required />
+            <span class="reg-err" id="err-email"></span>
+          </div>
+          <div class="reg-field">
+            <label for="reg-phone">Contact number <span class="req">*</span></label>
+            <input type="tel"   id="reg-phone" name="phone" placeholder="04XX XXX XXX"    autocomplete="tel"   required />
+            <span class="reg-err" id="err-phone"></span>
+          </div>
+        </div>
+
+        <div class="reg-tc-wrap" id="reg-tc-wrap">
+          <label class="reg-tc-label">
+            <input type="checkbox" id="reg-tc" name="tc" required />
+            <span class="reg-tc-checkbox"></span>
+            <span class="reg-tc-text">
+              I agree to share my contact details with verified building vendors and construction companies,
+              who may reach out to me with quotes, proposals, and project-relevant information.
+            </span>
+          </label>
+          <span class="reg-err" id="err-tc"></span>
+        </div>
+
+        <div class="reg-privacy">
+          🔒 Your details are stored securely and shared only with verified industry professionals.
+        </div>
+
+        <div class="reg-actions">
+          <button type="submit" class="reg-submit" id="reg-submit">
+            <span id="reg-submit-label">Continue to Estimator</span>
+            <span class="reg-submit-arrow" id="reg-submit-arrow">→</span>
+          </button>
+          <button type="button" class="reg-skip" id="reg-skip">Skip for now</button>
+        </div>
+
+      </form>
+
+      <!-- Success state — hidden until registration completes; toggled by app.js -->
+      <div class="reg-success" id="reg-success" style="display:none">
+        <div class="reg-success-icon">✅</div>
+        <h3>You're all set!</h3>
+        <p id="reg-success-msg"></p>
+        <p style="font-size:0.75rem;color:#94a3b8;margin-top:4px">Opening estimator now…</p>
+      </div>
+
+    </div><!-- /reg-modal-body -->
+
+  </div><!-- /reg-modal -->
+</div><!-- /reg-overlay -->
+
+<script src="app.js"></script>
+</body>
+</html>

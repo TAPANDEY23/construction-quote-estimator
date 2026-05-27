@@ -1,0 +1,12 @@
+{
+  "name": "construction-estimator-launcher",
+  "version": "1.0.0",
+  "description": "Launcher dashboard for the Construction Quote Estimator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

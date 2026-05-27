@@ -1,0 +1,26 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+backend/.env
+# .env.example is safe to commit (no real keys)
+
+# ── Database (local SQLite file — NOT committed; Turso replaces this) ─────────
+backend/data/
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+Website/node_modules/
+
+# ── Frontend build output ─────────────────────────────────────────────────────
+frontend/dist/
+frontend/.vite/
+
+# ── Launcher data (local only) ────────────────────────────────────────────────
+Website/registrations.json
+
+# ── OS / editor noise ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
