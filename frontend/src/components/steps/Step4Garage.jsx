@@ -40,7 +40,7 @@ export default function Step4Garage({ formData, update, onNext, onBack }) {
 
       <div className="step-nav">
         <button className="btn btn-secondary" onClick={onBack}>← Back</button>
-        <button className="btn btn-primary" onClick={onNext}>Continue →</button>
+        <button className="btn btn-primary" onClick={onNext}>Next →</button>
       </div>
     </div>
   );

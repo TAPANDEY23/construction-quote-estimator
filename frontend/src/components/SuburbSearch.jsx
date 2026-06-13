@@ -12,7 +12,7 @@ function staticSearch(q) {
   ).slice(0, MAX_RESULTS);
 }
 
-export default function SuburbSearch({ value, onChange, onStateDetected }) {
+export default function SuburbSearch({ value, onChange, onStateDetected, onPostcodeDetected }) {
   const [query, setQuery] = useState(value || '');
   const [suggestions, setSuggestions] = useState([]);
   const [highlighted, setHighlighted] = useState(-1);
@@ -85,10 +85,11 @@ export default function SuburbSearch({ value, onChange, onStateDetected }) {
   }
 
   function selectSuggestion(item) {
-    const [name, , state] = item;
+    const [name, postcode, state] = item;
     setQuery(name);
     onChange(name);
-    if (onStateDetected) onStateDetected(state);
+    if (onStateDetected)    onStateDetected(state);
+    if (onPostcodeDetected) onPostcodeDetected(postcode);
     setSuggestions([]);
     setOpen(false);
     setHighlighted(-1);

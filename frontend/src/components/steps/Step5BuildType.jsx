@@ -49,20 +49,9 @@ export default function Step5BuildType({ formData, update, onNext, onBack }) {
         ]}
       />
 
-      <OptionGroup
-        label="Quality / finish tier"
-        value={formData.qualityTier}
-        onChange={v => update('qualityTier', v)}
-        options={[
-          { value: 'budget', icon: '💲', label: 'Budget', desc: 'Entry-level finishes' },
-          { value: 'mid', icon: '💰', label: 'Mid-range', desc: 'Standard quality' },
-          { value: 'premium', icon: '💎', label: 'Premium', desc: 'High-end finishes' },
-        ]}
-      />
-
       <div className="step-nav">
         <button className="btn btn-secondary" onClick={onBack}>← Back</button>
-        <button className="btn btn-primary" onClick={onNext}>Continue →</button>
+        <button className="btn btn-primary" onClick={onNext}>Next →</button>
       </div>
     </div>
   );

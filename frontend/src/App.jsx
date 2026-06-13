@@ -7,6 +7,8 @@ import RegistrationForm from './components/RegistrationForm';
 const INITIAL_FORM = {
   suburb: '',
   state: '',
+  postcode: '',
+  siteCondition: 'not_sure',
   landSize: '',
   houseSize: '',
   storeys: 1,
@@ -16,8 +18,6 @@ const INITIAL_FORM = {
   study: false,
   garageType: 'single_garage',
   garageSpaces: 1,
-  buildMethod: 'brick_veneer',
-  designType: 'project_home',
   qualityTier: 'mid',
   kitchenFinish: 'standard',
   flooringType: 'mixed',
@@ -27,13 +27,36 @@ const INITIAL_FORM = {
   ductedAC: false,
   alfresco: false,
   specialRequirements: '',
+  // Category A — new fields
+  roofType:      'colorbond',
+  ceilingHeight: 'standard',
+  glazingType:   'single_aluminium',
+  livingAreas:   'open_plan',
+  laundryType:   'standard',
+  // Category B — new fields
+  ensuites:           1,
+  pantry:             false,
+  facadeType:         'brick_veneer',
+  homeTheatre:        false,
+  walkInRobe:         false,
+  smartHome:          false,
+  homeLift:           false,
+  fireplace:          false,
+  prayerRoom:         false,
+  extraGuestBedroom:  false,
 };
 
 function getInitialPhase() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('name')?.trim()) return 'wizard';
-  // Any user who has been here before (has a stored name) goes straight to the estimator.
-  // New users (nothing stored) must register first.
+  // ?reset=1 clears stored identity and forces registration page
+  if (params.get('reset') === '1') {
+    ['cqe_user_name', 'cqe_user_id', 'cqe_user_email', 'cqe_user_phone'].forEach(k => localStorage.removeItem(k));
+    const clean = new URL(window.location.href);
+    clean.searchParams.delete('reset');
+    window.history.replaceState({}, '', clean);
+    return 'registration';
+  }
   return localStorage.getItem('cqe_user_name') ? 'wizard' : 'registration';
 }
 
@@ -162,14 +185,17 @@ export default function App() {
   /* ── Registration (new users only — shown once until DB write succeeds) ────── */
   if (phase === 'registration') {
     return (
-      <>
-        <header className="app-header">
-          <span style={{ fontSize: '1.4rem' }}>🏗️</span>
-          <h1>Construction Cost Estimator</h1>
-          <span className="tagline">AI-powered · Australian market · Instant results</span>
-        </header>
-        <RegistrationForm onComplete={handleRegistration} />
-      </>
+      <div className="reg-split-layout">
+        <RegistrationImagePanel />
+        <div className="reg-split-right">
+          <header className="app-header">
+            <span style={{ fontSize: '1.4rem' }}>🏗️</span>
+            <h1>Construction Cost Estimator</h1>
+            <span className="tagline">Homeygo AI · Australian market · Instant results</span>
+          </header>
+          <RegistrationForm onComplete={handleRegistration} />
+        </div>
+      </div>
     );
   }
 
@@ -179,7 +205,7 @@ export default function App() {
       <header className="app-header">
         <span style={{ fontSize: '1.4rem' }}>🏗️</span>
         <h1>Construction Cost Estimator</h1>
-        <span className="tagline">AI-powered · Australian market · Instant results</span>
+        <span className="tagline">Homeygo AI · Australian market · Instant results</span>
       </header>
 
       {phase === 'result' && (
@@ -233,6 +259,69 @@ export default function App() {
   );
 }
 
+/* ── Registration image slider ────────────────────────────────────────────── */
+const SLIDES = [
+  {
+    url: 'https://images.pexels.com/photos/209266/pexels-photo-209266.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    caption: 'Timber frame — new residential build in progress',
+  },
+  {
+    url: 'https://images.pexels.com/photos/37627540/pexels-photo-37627540.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    caption: 'Two-storey home — wall framing & structural stage',
+  },
+  {
+    url: 'https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+    caption: 'Residential development — construction & crane lift',
+  },
+];
+
+function RegistrationImagePanel() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setActiveSlide(prev => (prev + 1) % SLIDES.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="reg-image-panel">
+      {SLIDES.map((slide, i) => (
+        <div
+          key={i}
+          className={`reg-slide${i === activeSlide ? ' active' : ''}`}
+          style={{ backgroundImage: `url('${slide.url}')` }}
+        />
+      ))}
+      <div className="reg-slide-overlay" />
+      <div className="reg-slide-brand">
+        <span style={{ fontSize: '1.2rem' }}>🏗️</span>
+        <span className="reg-slide-brand-text">Built in Australia</span>
+      </div>
+      <div className="reg-slide-tagline">
+        <div className="reg-slide-tagline-title">Estimate your build<br />with AI confidence</div>
+        <div className="reg-slide-tagline-sub">Australian pricing · 2024–2025</div>
+      </div>
+      <div className="reg-slide-captions">
+        {SLIDES.map((slide, i) => (
+          <div key={i} className={`reg-slide-caption${i === activeSlide ? ' active' : ''}`}>
+            {slide.caption}
+          </div>
+        ))}
+      </div>
+      <div className="reg-slide-dots">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            className={`reg-slide-dot${i === activeSlide ? ' active' : ''}`}
+            onClick={() => setActiveSlide(i)}
+            aria-label={`Photo ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ── Loading screen ───────────────────────────────────────────────────────── */
 const LOADING_MESSAGES = [
   { icon: '📍', text: 'Analysing location & market conditions...' },
@@ -244,16 +333,19 @@ const LOADING_MESSAGES = [
 
 function LoadingScreen() {
   const [visibleCount, setVisibleCount] = useState(1);
+  const allDone = visibleCount >= LOADING_MESSAGES.length;
 
-  useState(() => {
-    let i = 1;
+  useEffect(() => {
+    if (allDone) return;
     const interval = setInterval(() => {
-      i++;
-      setVisibleCount(i);
-      if (i >= LOADING_MESSAGES.length) clearInterval(interval);
+      setVisibleCount(prev => {
+        const next = prev + 1;
+        if (next >= LOADING_MESSAGES.length) clearInterval(interval);
+        return next;
+      });
     }, 1800);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
     <div className="loading-wrapper">
@@ -263,16 +355,24 @@ function LoadingScreen() {
         Our AI is analysing your project against current Australian construction market data.
       </div>
       <div className="loading-steps">
-        {LOADING_MESSAGES.slice(0, visibleCount).map((msg, i) => (
-          <div
-            key={i}
-            className={`loading-step ${i === visibleCount - 1 ? 'active' : ''}`}
-            style={{ animationDelay: `${i * 0.1}s` }}
-          >
-            <span>{msg.icon}</span>
-            <span>{msg.text}</span>
-          </div>
+        {LOADING_MESSAGES.map((msg, i) => (
+          i < visibleCount ? (
+            <div
+              key={i}
+              className={`loading-step ${!allDone && i === visibleCount - 1 ? 'active' : 'done'}`}
+              style={{ animationDelay: `${i * 0.1}s` }}
+            >
+              <span>{allDone || i < visibleCount - 1 ? '✓' : msg.icon}</span>
+              <span>{msg.text}</span>
+            </div>
+          ) : null
         ))}
+        {allDone && (
+          <div className="loading-step loading-step--finalising">
+            <span>⏳</span>
+            <span>Finalising your report…</span>
+          </div>
+        )}
       </div>
     </div>
   );

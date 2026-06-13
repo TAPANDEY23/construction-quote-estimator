@@ -43,17 +43,25 @@ export default function Step7Special({ formData, update, onBack, onSubmit }) {
               key={s}
               onClick={() => addSuggestion(s)}
               style={{
-                padding: '4px 10px',
+                padding: '5px 12px',
                 fontSize: '0.75rem',
                 borderRadius: 99,
-                border: '1px solid var(--border)',
-                background: 'white',
+                border: '1px solid rgba(245,158,11,0.35)',
+                background: 'rgba(245,158,11,0.1)',
                 cursor: 'pointer',
-                color: 'var(--text)',
+                color: 'rgba(255,255,255,0.82)',
                 transition: 'all 0.15s',
               }}
-              onMouseOver={e => { e.target.style.borderColor = 'var(--primary)'; e.target.style.color = 'var(--primary)'; }}
-              onMouseOut={e => { e.target.style.borderColor = 'var(--border)'; e.target.style.color = 'var(--text)'; }}
+              onMouseOver={e => {
+                e.currentTarget.style.background = 'rgba(245,158,11,0.25)';
+                e.currentTarget.style.borderColor = 'var(--primary)';
+                e.currentTarget.style.color = '#fbbf24';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.background = 'rgba(245,158,11,0.1)';
+                e.currentTarget.style.borderColor = 'rgba(245,158,11,0.35)';
+                e.currentTarget.style.color = 'rgba(255,255,255,0.82)';
+              }}
             >
               + {s}
             </button>

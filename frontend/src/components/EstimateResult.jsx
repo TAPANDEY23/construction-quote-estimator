@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import CopilotChat from './CopilotChat';
+import { getCouncilData } from '../data/councils';
 
 function fmt(n) {
   return n != null ? '$' + Math.round(n).toLocaleString('en-AU') : '—';
@@ -11,6 +12,11 @@ export default function EstimateResult({ estimate, formData, onRestart, userName
   const e = estimate;
   const [chatMessages, setChatMessages] = useState([]);
   const [pdfGenerating, setPdfGenerating] = useState(false);
+
+  const council = getCouncilData(formData.postcode, formData.state);
+  const councilMeta = council.council
+    ? `${council.council} · FSR ${council.fsr}×`
+    : `FSR ${council.fsr}×${council.approx ? ' (approx.)' : ''}`;
 
   function downloadPDF() {
     setPdfGenerating(true);
@@ -56,7 +62,7 @@ export default function EstimateResult({ estimate, formData, onRestart, userName
       doc.setTextColor(...MUTED);
       doc.setFontSize(8.5);
       doc.text(
-        `${formData.suburb}, ${formData.state}  ·  ${formData.houseSize}m²  ·  ${formData.bedrooms}bd ${formData.bathrooms}ba  ·  ${e.buildTimeEstimate}`,
+        `${formData.suburb}, ${formData.state}  ·  ${formData.houseSize}m²  ·  ${formData.bedrooms}bd ${formData.bathrooms}ba  ·  ${e.buildTimeEstimate}  ·  ${councilMeta}`,
         margin,
         y
       );
@@ -207,7 +213,7 @@ export default function EstimateResult({ estimate, formData, onRestart, userName
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...DARK);
-        doc.text('AI Copilot Insights', margin, y);
+        doc.text('Homeygo AI Insights', margin, y);
         y += 5;
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8);
@@ -278,7 +284,7 @@ export default function EstimateResult({ estimate, formData, onRestart, userName
             <h2>Your Construction Estimate</h2>
             <p className="result-summary">{e.summary}</p>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 8 }}>
-              {formData.suburb}, {formData.state} · {formData.houseSize}m² · {formData.bedrooms}bd {formData.bathrooms}ba · {e.buildTimeEstimate}
+              {formData.suburb}, {formData.state} · {formData.houseSize}m² · {formData.bedrooms}bd {formData.bathrooms}ba · {e.buildTimeEstimate} · {councilMeta}
             </p>
           </div>
 

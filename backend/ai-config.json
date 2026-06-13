@@ -1,0 +1,47 @@
+{
+  "_readme": [
+    "PRIORITY ORDER: Move entries up/down to change which provider is tried first.",
+    "DISABLE:        Set 'enabled' to false to skip a provider without removing its API key.",
+    "MODEL SWAP:     Change the 'model' field here — no code change needed.",
+    "HOT-RELOAD:     This file is re-read on every request — no server restart required.",
+    "API KEYS:       Keys live in backend/.env (never committed to git)."
+  ],
+  "providers": [
+    {
+      "name": "groq",
+      "enabled": true,
+      "model": "llama-3.3-70b-versatile",
+      "note": "Primary — ultra-fast Llama 70B, generous free tier"
+    },
+    {
+      "name": "mistral",
+      "enabled": true,
+      "model": "mistral-small-latest",
+      "note": "Fallback 2 — Mistral AI, strong reasoning"
+    },
+    {
+      "name": "nvidia",
+      "enabled": true,
+      "model": "meta/llama-3.3-70b-instruct",
+      "note": "Fallback 3 — Nvidia NIM, Llama 3.3 70B instruct (fast, ~5-15s)"
+    },
+    {
+      "name": "cerebras",
+      "enabled": true,
+      "model": "gpt-oss-120b",
+      "note": "Fallback 4 — Cerebras ultra-fast inference"
+    },
+    {
+      "name": "openrouter",
+      "enabled": true,
+      "model": "google/gemma-4-31b-it:free",
+      "note": "Fallback 5 — OpenRouter free tier, Gemma 4 31B"
+    },
+    {
+      "name": "gemini",
+      "enabled": true,
+      "model": "gemini-2.5-flash",
+      "note": "Fallback 1 — Google AI Studio, Gemini 2.5 Flash"
+    }
+  ]
+}

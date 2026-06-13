@@ -4,6 +4,7 @@ backend/.env
 
 # ── Database (local SQLite file — NOT committed; Turso replaces this) ─────────
 backend/data/
+backend/local.db
 
 # ── Dependencies ──────────────────────────────────────────────────────────────
 node_modules/
